@@ -4,6 +4,7 @@ var repoContainerEl = document.querySelector("#repos-container")
 var repoSearchTerm = document.querySelector("#repo-search-term")
 
 var formSubmitHandler = function(event) {
+    // prevent page from refreshin
     event.preventDefault();
 
     // get value from input element
@@ -11,17 +12,18 @@ var formSubmitHandler = function(event) {
 
     if(username){
         getUserRepos(username);
+
+        // clear old content
+        repoContainerEl.textContent = '';
         nameInputEl.value = "";
     } else {
         alert("Please enter a GitHub username");
     }
-
-    console.log(event);
 };
 
 var getUserRepos = function(user) {
     // format the github api url
-    var apiURL = "https://api.github.com/users/" + user + "/repos";
+    var apiUrl = "https://api.github.com/users/" + user + "/repos";
 
     // make a request to the url
     fetch(apiUrl)
